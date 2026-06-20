@@ -2,7 +2,19 @@
 
 - Create React App
 - Tailwind Configuration for Create React App
-
+- Header
+- Routing of App
+- Login Form
+- Sign Up Form
+- Form Validation
+- useRef Hook
+- Firebase Setup
+- Deploying our app to production
+- Sign In and Sign up user API Integration
+- Created Redux Store with userSlice
+- Implemented Sign out
+- Update Profile API with name and photo url
+- Fetch from TMDB Movies
 
 
 # Features
