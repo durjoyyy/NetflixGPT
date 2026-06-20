@@ -14,6 +14,9 @@
 - Created Redux Store with userSlice
 - Implemented Sign out
 - Update Profile API with name and photo url
+- Redirect user to correct url on redirect
+- Unsubscribe to the onAuthStateChanged callback
+- Added hardcoded strings to constants file
 - Fetch from TMDB Movies
 
 

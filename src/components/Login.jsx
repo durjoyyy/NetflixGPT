@@ -10,6 +10,7 @@ import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { DEFAULT_PROFILE_IMAGE_URL, LOGIN_BACKGROUND_IMAGE_URL, ROUTE_BROWSE, LOGIN_SIGN_IN, LOGIN_SIGN_UP, LOGIN_NEW_TO_NETFLIX, LOGIN_ALREADY_USER, LOGIN_SIGN_UP_NOW, LOGIN_SIGN_IN_TEXT, LOGIN_PLACEHOLDER_FULL_NAME, LOGIN_PLACEHOLDER_EMAIL, LOGIN_PLACEHOLDER_PASSWORD } from "../utils/constants";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -40,18 +41,16 @@ const Login = () => {
       )
         .then((userCredential) => {
           // Signed up
-          const user = userCredential.user;
           updateProfile(auth.currentUser, {
             displayName: fullName.current.value,
-            photoURL:
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQETi_gIfzbGIGCYPFy8y6PLIEB6ZiccZ3wx55nFgVzlNiPBAKqfM1shJY&s=10",
+            photoURL: DEFAULT_PROFILE_IMAGE_URL,
           })
             .then(() => {
-              const { uid, email, displayName } = auth.currentUser;
+              const { uid, email, displayName, photoURL } = auth.currentUser;
               dispatch(
-                addUser({ uid: uid, email: email, displayName: displayName }),
+                addUser({ uid: uid, email: email, displayName: displayName, photoURL: photoURL }),
               );
-              navigate("/browse");
+              navigate(ROUTE_BROWSE);
               // ...
             })
             .catch((error) => {
@@ -73,9 +72,7 @@ const Login = () => {
       )
         .then((userCredential) => {
           // Signed in
-          const user = userCredential.user;
-          console.log(user);
-          navigate("/browse");
+          navigate(ROUTE_BROWSE);
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -92,7 +89,7 @@ const Login = () => {
       {/* Background Image */}
       <img
         className="w-screen h-screen object-cover"
-        src="https://xboxwire.thesourcemediaassets.com/sites/2/2023/05/Background-size1920x1080-4e1694a6-75aa-4c36-9d4d-7fb6a3102005-bc5318781aad7f5c8520.png"
+        src={LOGIN_BACKGROUND_IMAGE_URL}
         alt="background"
       />
 
@@ -105,26 +102,26 @@ const Login = () => {
         onSubmit={(e) => e.preventDefault()}
       >
         <h1 className="font-bold text-3xl mb-8 text-white">
-          {isSignInForm ? "Sign In" : "Sign Up"}
+          {isSignInForm ? LOGIN_SIGN_IN : LOGIN_SIGN_UP}
         </h1>
         {!isSignInForm && (
           <input
             type="text"
             ref={fullName}
-            placeholder="Full Name"
+            placeholder={LOGIN_PLACEHOLDER_FULL_NAME}
             className="w-full p-4 mb-7 rounded bg-gray-600 text-white placeholder-gray-300"
           />
         )}
         <input
           ref={email}
           type="email"
-          placeholder="Email Address"
+          placeholder={LOGIN_PLACEHOLDER_EMAIL}
           className="w-full p-4 mb-7 rounded bg-gray-600 text-white placeholder-gray-300"
         />
         <input
           ref={password}
           type="password"
-          placeholder="Password"
+          placeholder={LOGIN_PLACEHOLDER_PASSWORD}
           className="w-full p-4 mb-7 rounded bg-gray-600 text-white placeholder-gray-300"
         />
         {errorMsg && (
@@ -134,15 +131,15 @@ const Login = () => {
           className="transition duration-200 w-full p-4 bg-red-600 hover:bg-red-700 text-white font-semibold rounded"
           onClick={handleSubmit}
         >
-          {isSignInForm ? "Sign In" : "Sign Up"}
+          {isSignInForm ? LOGIN_SIGN_IN_TEXT : LOGIN_SIGN_UP}
         </button>
         <p className="text-gray-400 mt-7">
-          {isSignInForm ? "New to Netflix?" : "Already an user?"}
+          {isSignInForm ? LOGIN_NEW_TO_NETFLIX : LOGIN_ALREADY_USER}
           <span
             className="text-white cursor-pointer hover:underline"
             onClick={toggleSignInForm}
           >
-            {isSignInForm ? " Sign Up Now" : " Sign In"}
+            {isSignInForm ? " " + LOGIN_SIGN_UP_NOW : " " + LOGIN_SIGN_IN_TEXT}
           </span>
         </p>
       </form>
