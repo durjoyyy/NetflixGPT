@@ -27,6 +27,9 @@
 - Fetched data for trailer Video
 - Update the store with the trailer video data
 - Embedded the YT Video and made it autoplay and mute
+- Secondary Component Added, Movie List and Movie Card
+- Found out TMDB Image CDN URL
+- Fetch top rated, popular, upcoming movies
 
 
 

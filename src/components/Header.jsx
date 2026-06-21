@@ -62,23 +62,23 @@ const Header = () => {
 
 return (
   <header className="fixed top-0 left-0 right-0 z-[100] bg-black/95 shadow-lg shadow-black/30">
-    <div className="flex items-center justify-between px-4 md:px-8 py-3">
+    <div className="flex items-center justify-between px-3 sm:px-6 md:px-8 py-2.5 md:py-3">
       <img
-        className="w-28 md:w-36 lg:w-44"
+        className="w-24 sm:w-28 md:w-36 lg:w-44 object-contain"
         src={NETFLIX_LOGO_URL}
         alt={HEADER_NETFLIX_LOGO_ALT}
       />
 
       {user && (
-        <div className="flex items-center gap-3 md:gap-4">
+        <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
           <img
-            className="h-8 w-8 md:h-10 md:w-10 rounded-md object-cover"
+            className="h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10 rounded-md object-cover"
             src={user?.photoURL || DEFAULT_PROFILE_IMAGE_URL}
             alt={HEADER_PROFILE_ALT}
           />
 
           <button
-            className="rounded bg-red-600 px-3 md:px-4 py-1 md:py-2 text-xs md:text-sm font-semibold text-white hover:bg-red-700"
+            className="rounded bg-red-600 px-2.5 sm:px-3 md:px-4 py-1 md:py-2 text-xs sm:text-sm md:text-sm font-semibold text-white hover:bg-red-700 transition active:scale-95"
             onClick={handleSignOut}
           >
             {HEADER_SIGN_OUT}

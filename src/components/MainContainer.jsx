@@ -7,12 +7,12 @@ const MainContainer = () => {
   const movies = useSelector((store) => store.movies?.nowPlayingMovies);
   if (!movies) return;
 
-  const mainMovie = movies[5];
+  const mainMovie = movies[7];
 
   const { original_title, overview,id } = mainMovie;
 
   return (
-    <div className="relative h-screen overflow-hidden bg-black">
+    <div className="relative w-full aspect-video md:aspect-auto md:h-screen overflow-hidden bg-black">
       <VideoTitle title={original_title} overview={overview} />
       <VideoBG movieId={id}  />
     </div>
