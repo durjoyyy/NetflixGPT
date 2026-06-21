@@ -1,7 +1,10 @@
 // Image URLs
-export const NETFLIX_LOGO_URL = "https://upload.wikimedia.org/wikipedia/commons/7/7a/Logonetflix.png";
-export const DEFAULT_PROFILE_IMAGE_URL = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQETi_gIfzbGIGCYPFy8y6PLIEB6ZiccZ3wx55nFgVzlNiPBAKqfM1shJY&s=10";
-export const LOGIN_BACKGROUND_IMAGE_URL = "https://xboxwire.thesourcemediaassets.com/sites/2/2023/05/Background-size1920x1080-4e1694a6-75aa-4c36-9d4d-7fb6a3102005-bc5318781aad7f5c8520.png";
+export const NETFLIX_LOGO_URL =
+  "https://upload.wikimedia.org/wikipedia/commons/7/7a/Logonetflix.png";
+export const DEFAULT_PROFILE_IMAGE_URL =
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQETi_gIfzbGIGCYPFy8y6PLIEB6ZiccZ3wx55nFgVzlNiPBAKqfM1shJY&s=10";
+export const LOGIN_BACKGROUND_IMAGE_URL =
+  "https://xboxwire.thesourcemediaassets.com/sites/2/2023/05/Background-size1920x1080-4e1694a6-75aa-4c36-9d4d-7fb6a3102005-bc5318781aad7f5c8520.png";
 
 // Route Paths
 export const ROUTE_LOGIN = "/";
@@ -25,3 +28,12 @@ export const HEADER_SIGN_OUT = "Sign Out";
 
 // Error Messages
 export const AUTH_ERROR_PREFIX = "Auth error:";
+
+export const API_OPTIONS = {
+  method: "GET",
+  headers: {
+    accept: "application/json",
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNWQyNzBiNzU0ODM0NTNlZGUzNjRiMzBjNmM4YTYyYiIsIm5iZiI6MTc4MTk4NTU2OC4yMTcsInN1YiI6IjZhMzZmMTIwY2I2MDVhMzMzODJjY2ZkMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.vf0fDGZ8ov4D-Fe288WpfeJcVOmNcORh5aIxPrOIHbc",
+  },
+};

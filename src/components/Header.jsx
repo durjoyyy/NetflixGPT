@@ -22,10 +22,7 @@ const Header = () => {
       });
   };
 
-  // dispatch is in the dependency array because it's used inside the useEffect.
-  // React's ESLint rule says:
-  // "If you're using something inside useEffect, put it in the dependency array."
-  //practically same if [dispatch] is not used and [] is used
+
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(
@@ -63,23 +60,25 @@ const Header = () => {
     return () => unsubscribe();
   }, [dispatch, navigate]);
 
-  return (
-    <div className="absolute top-0 left-0 z-10 flex w-full items-center justify-between bg-gradient-to-b from-black px-8 py-2">
+return (
+  <header className="fixed top-0 left-0 right-0 z-[100] bg-black/95 shadow-lg shadow-black/30">
+    <div className="flex items-center justify-between px-4 md:px-8 py-3">
       <img
-        className="w-44"
+        className="w-28 md:w-36 lg:w-44"
         src={NETFLIX_LOGO_URL}
         alt={HEADER_NETFLIX_LOGO_ALT}
       />
+
       {user && (
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 md:gap-4">
           <img
-            className="h-10 w-10 rounded-md object-cover"
+            className="h-8 w-8 md:h-10 md:w-10 rounded-md object-cover"
             src={user?.photoURL || DEFAULT_PROFILE_IMAGE_URL}
             alt={HEADER_PROFILE_ALT}
           />
 
           <button
-            className="rounded bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700"
+            className="rounded bg-red-600 px-3 md:px-4 py-1 md:py-2 text-xs md:text-sm font-semibold text-white hover:bg-red-700"
             onClick={handleSignOut}
           >
             {HEADER_SIGN_OUT}
@@ -87,7 +86,8 @@ const Header = () => {
         </div>
       )}
     </div>
-  );
+  </header>
+);
 };
 
 export default Header;

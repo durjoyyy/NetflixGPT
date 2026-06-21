@@ -18,6 +18,16 @@
 - Unsubscribe to the onAuthStateChanged callback
 - Added hardcoded strings to constants file
 - Fetch from TMDB Movies
+- Register TMDB API, create app, get access token
+- Get Data from TMDB and now playing movie list API
+- Custom for now playing movies
+- Create movie slice
+- Updated store with movie Data
+- Planning for Main and Secondary Container
+- Fetched data for trailer Video
+- Update the store with the trailer video data
+- Embedded the YT Video and made it autoplay and mute
+
 
 
 # Features
