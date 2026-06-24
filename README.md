@@ -30,7 +30,9 @@
 - Secondary Component Added, Movie List and Movie Card
 - Found out TMDB Image CDN URL
 - Fetch top rated, popular, upcoming movies
-
+- GPT Search Bar and Button
+- Multi Language Feature in our app
+- Integrate GPT APIs (get open api keys)
 
 
 # Features

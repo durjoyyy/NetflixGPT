@@ -10,20 +10,34 @@ import {
   NETFLIX_LOGO_URL,
   ROUTE_BROWSE,
   ROUTE_LOGIN,
+  SUPPORTED_LANGUAGES,
 } from "../utils/constants";
 import { auth } from "../utils/firebase";
 import { addUser, removeUser } from "../utils/userSlice";
+import { toggleGPTSearchView } from "../utils/gptSlice";
+import { changeLanguage } from "../utils/configSlice";
 
 const Header = () => {
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navItems = ["Home", "TV Shows", "Movies", "New & Popular", "My List"];
+  const gptSearch = useSelector((store) => store.gpt.showGPTSearch);
 
   const handleSignOut = () => {
     signOut(auth).catch((error) => {
       console.error(error);
     });
+  };
+
+  const handleGPTSearchClick = () => {
+    console.log("clicked");
+    dispatch(toggleGPTSearchView());
+  };
+
+  const handleLangChange = (e) => {
+    console.log(e.target.value);
+    dispatch(changeLanguage(e.target.value));
   };
 
   useEffect(() => {
@@ -81,11 +95,32 @@ const Header = () => {
 
         {user && (
           <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
+            {gptSearch && (
+              <select
+                name="lang"
+                id=""
+                className="text-black bg-white rounded-lg px-4 py-2"
+                onChange={handleLangChange}
+              >
+                {SUPPORTED_LANGUAGES.map((lang) => (
+                  <option className="rounded-lg" value={lang.identifier}>
+                    {lang.name}
+                  </option>
+                ))}
+              </select>
+            )}
+
             <img
               className="h-8 w-8 rounded object-cover ring-1 ring-white/15 md:h-10 md:w-10"
               src={user?.photoURL || DEFAULT_PROFILE_IMAGE_URL}
               alt={HEADER_PROFILE_ALT}
             />
+            <button
+              className="py-2 px-4 bg-white text-black rounded-lg"
+              onClick={handleGPTSearchClick}
+            >
+              {!gptSearch?'GPT Search':'Home Page'}
+            </button>
 
             <button
               className="rounded bg-[#e50914] px-3 py-1.5 text-xs font-semibold text-white shadow-md shadow-black/30 transition hover:bg-[#f6121d] active:scale-95 sm:px-4 md:text-sm"

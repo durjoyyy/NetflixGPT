@@ -5,8 +5,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ROUTE_LOGIN, ROUTE_BROWSE } from "../utils/constants";
 
 const Body = () => {
-
-
   const appRouter = createBrowserRouter([
     {
       path: ROUTE_LOGIN,
@@ -17,11 +15,6 @@ const Body = () => {
       element: <Browse />,
     },
   ]);
-
-
-
-
-
 
   return (
     <div>

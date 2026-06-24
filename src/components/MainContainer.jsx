@@ -10,7 +10,9 @@ const MainContainer = () => {
     return <div className="h-[70vh] bg-black" />;
   }
 
-  const mainMovie = movies.find((movie) => movie?.id && movie?.overview) || movies[0];
+  const mainMovie =  movies[1];
+  console.log(movies);
+  console.log(mainMovie);
 
   if (!mainMovie) {
     return <div className="h-[70vh] bg-black" />;
