@@ -1,14 +1,13 @@
 import React from "react";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import useMovieTrailer from "../hooks/useMovieTrailer";
 
 const VideoBG = ({ movieId }) => {
-  console.log(movieId);
-
-  const trailerVideo=useSelector(store=>store.movies?.trailerVideo);
+  const trailerVideo = useSelector((store) => store.movies?.trailerVideo);
 
   useMovieTrailer({ movieId });
-  if(!trailerVideo?.key) return null;
+
+  if (!trailerVideo?.key) return null;
 
   const youtubeParams = new URLSearchParams({
     autoplay: "1",
@@ -24,16 +23,16 @@ const VideoBG = ({ movieId }) => {
     playlist: trailerVideo.key,
   });
 
-
   return (
     <div className="absolute inset-0 z-0 overflow-hidden bg-black">
       <iframe
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[120%] w-[120%] -translate-x-1/2 -translate-y-1/2"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[120%] min-h-[120vw] w-[120%] min-w-[213vh] -translate-x-1/2 -translate-y-1/2"
         src={`https://www.youtube-nocookie.com/embed/${trailerVideo.key}?${youtubeParams.toString()}`}
         title="Movie trailer background"
         allow="autoplay; encrypted-media"
         referrerPolicy="strict-origin-when-cross-origin"
       />
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-black/20" />
     </div>
   );
 };

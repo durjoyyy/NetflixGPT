@@ -1,17 +1,18 @@
 import React from "react";
 import { IMG_CDN_URL } from "../utils/constants";
 
-const MovieCard = ({ posterPath }) => {
+const MovieCard = ({ posterPath, title }) => {
   if (!posterPath) return null;
 
   return (
-    <div className="flex-shrink-0 w-32 sm:w-40 md:w-48 lg:w-52 transition duration-300 hover:scale-110 cursor-pointer">
+    <article className="group/card w-28 flex-none cursor-pointer sm:w-36 md:w-44 lg:w-48">
       <img
-        className="rounded-md w-full h-auto object-cover shadow-lg"
+        className="aspect-[2/3] w-full rounded object-cover shadow-xl shadow-black/60 ring-1 ring-white/10 transition duration-300 group-hover/card:-translate-y-1 group-hover/card:scale-105 group-hover/card:ring-white/30"
         src={IMG_CDN_URL + posterPath}
-        alt="Movie Poster"
+        alt={title || "Movie Poster"}
+        loading="lazy"
       />
-    </div>
+    </article>
   );
 };
 

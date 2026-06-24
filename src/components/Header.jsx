@@ -1,49 +1,47 @@
-import React from "react";
-import { auth } from "../utils/firebase";
-import { signOut } from "firebase/auth";
+import React, { useEffect } from "react";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { onAuthStateChanged } from "firebase/auth";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import {
+  DEFAULT_PROFILE_IMAGE_URL,
+  HEADER_NETFLIX_LOGO_ALT,
+  HEADER_PROFILE_ALT,
+  HEADER_SIGN_OUT,
+  NETFLIX_LOGO_URL,
+  ROUTE_BROWSE,
+  ROUTE_LOGIN,
+} from "../utils/constants";
+import { auth } from "../utils/firebase";
 import { addUser, removeUser } from "../utils/userSlice";
-import { NETFLIX_LOGO_URL, DEFAULT_PROFILE_IMAGE_URL, ROUTE_BROWSE, ROUTE_LOGIN, HEADER_NETFLIX_LOGO_ALT, HEADER_PROFILE_ALT, HEADER_SIGN_OUT } from "../utils/constants";
 
 const Header = () => {
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
+  const navItems = ["Home", "TV Shows", "Movies", "New & Popular", "My List"];
 
   const handleSignOut = () => {
-    signOut(auth)
-      .then(() => {})
-      .catch((error) => {
-        console.log(error);
-      });
+    signOut(auth).catch((error) => {
+      console.error(error);
+    });
   };
-
-
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(
       auth,
-      (user) => {
-        if (user) {
-          // User is signed in, see docs for a list of available properties
-          // https://firebase.google.com/docs/reference/js/auth.user
-          const { uid, email, displayName, photoURL } = user;
+      (currentUser) => {
+        if (currentUser) {
+          const { uid, email, displayName, photoURL } = currentUser;
           dispatch(
             addUser({
-              uid: uid,
-              email: email,
-              displayName: displayName,
-              photoURL: photoURL,
+              uid,
+              email,
+              displayName,
+              photoURL,
             }),
           );
           navigate(ROUTE_BROWSE);
         } else {
-          // User is signed out
-          // ...
           dispatch(removeUser());
           navigate(ROUTE_LOGIN);
         }
@@ -53,41 +51,54 @@ const Header = () => {
       },
     );
 
-    //unsubscribe when component unmounts
-    //onAuthStateChanged() creates a Firebase auth listener.
-    // unsubscribe() removes that listener when the component unmounts,
-    // preventing memory leaks and duplicate listeners.
     return () => unsubscribe();
   }, [dispatch, navigate]);
 
-return (
-  <header className="fixed top-0 left-0 right-0 z-[100] bg-black/95 shadow-lg shadow-black/30">
-    <div className="flex items-center justify-between px-3 sm:px-6 md:px-8 py-2.5 md:py-3">
-      <img
-        className="w-24 sm:w-28 md:w-36 lg:w-44 object-contain"
-        src={NETFLIX_LOGO_URL}
-        alt={HEADER_NETFLIX_LOGO_ALT}
-      />
-
-      {user && (
-        <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
+  return (
+    <header className="fixed left-0 right-0 top-0 z-[100] bg-gradient-to-b from-black via-black/90 to-black/55 backdrop-blur-sm">
+      <div className="flex h-16 items-center justify-between px-4 sm:px-6 md:h-20 md:px-10 lg:px-14">
+        <div className="flex min-w-0 items-center gap-6 lg:gap-9">
           <img
-            className="h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10 rounded-md object-cover"
-            src={user?.photoURL || DEFAULT_PROFILE_IMAGE_URL}
-            alt={HEADER_PROFILE_ALT}
+            className="w-24 shrink-0 object-contain sm:w-28 md:w-36 lg:w-40"
+            src={NETFLIX_LOGO_URL}
+            alt={HEADER_NETFLIX_LOGO_ALT}
           />
 
-          <button
-            className="rounded bg-red-600 px-2.5 sm:px-3 md:px-4 py-1 md:py-2 text-xs sm:text-sm md:text-sm font-semibold text-white hover:bg-red-700 transition active:scale-95"
-            onClick={handleSignOut}
-          >
-            {HEADER_SIGN_OUT}
-          </button>
+          {user && (
+            <nav className="hidden items-center gap-5 text-sm font-medium text-zinc-200 md:flex">
+              {navItems.map((item) => (
+                <button
+                  key={item}
+                  className="text-left transition hover:text-zinc-400"
+                  type="button"
+                >
+                  {item}
+                </button>
+              ))}
+            </nav>
+          )}
         </div>
-      )}
-    </div>
-  </header>
-);
+
+        {user && (
+          <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
+            <img
+              className="h-8 w-8 rounded object-cover ring-1 ring-white/15 md:h-10 md:w-10"
+              src={user?.photoURL || DEFAULT_PROFILE_IMAGE_URL}
+              alt={HEADER_PROFILE_ALT}
+            />
+
+            <button
+              className="rounded bg-[#e50914] px-3 py-1.5 text-xs font-semibold text-white shadow-md shadow-black/30 transition hover:bg-[#f6121d] active:scale-95 sm:px-4 md:text-sm"
+              onClick={handleSignOut}
+              type="button"
+            >
+              {HEADER_SIGN_OUT}
+            </button>
+          </div>
+        )}
+      </div>
+    </header>
+  );
 };
 
 export default Header;

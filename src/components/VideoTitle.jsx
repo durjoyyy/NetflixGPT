@@ -7,13 +7,21 @@ const VideoTitle = ({ title, overview }) => {
     overview && overview.length > 150 ? `${overview.substring(0, 150)}...` : overview;
 
   return (
-    <div className="absolute inset-0 z-10 bg-gradient-to-r from-black via-black/70 to-transparent flex flex-col justify-center">
-      <div className="pt-12 sm:pt-16 md:pt-20 lg:pt-32 px-4 sm:px-6 md:px-8 lg:px-16 max-w-2xl lg:max-w-3xl">
-        <h1 className="text-white text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold drop-shadow-lg mb-3 md:mb-4 line-clamp-3">
+    <div className="absolute inset-0 z-10 flex flex-col justify-center bg-gradient-to-r from-black via-black/70 to-transparent">
+      <div className="max-w-3xl px-4 pt-16 sm:px-6 md:px-10 lg:px-14 lg:pt-24">
+        <p className="mb-2 hidden text-xs font-semibold uppercase tracking-[0.28em] text-zinc-300 sm:block">
+          Netflix Original
+        </p>
+
+        <h1 className="mb-3 max-w-2xl text-3xl font-black leading-none text-white drop-shadow-2xl sm:text-5xl md:text-6xl lg:text-7xl">
           {title}
         </h1>
 
-        <p className="text-white text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed mb-4 md:mb-6 w-full lg:w-3/4 line-clamp-2 md:line-clamp-3">
+        <p
+          className={`mb-5 max-w-xl text-sm font-medium leading-relaxed text-white drop-shadow md:mb-7 md:text-lg ${
+            showMore ? "" : "line-clamp-3"
+          }`}
+        >
           {overview
             ? showMore
               ? overview
@@ -21,14 +29,18 @@ const VideoTitle = ({ title, overview }) => {
             : "No description available"}
         </p>
 
-        <div className="flex flex-wrap gap-2 sm:gap-3 md:gap-4">
-          <button className="bg-white text-black px-3 sm:px-4 md:px-6 lg:px-8 py-1.5 sm:py-2 md:py-2.5 lg:py-3 rounded-md text-xs sm:text-sm md:text-base lg:text-lg font-bold hover:bg-gray-200 transition active:scale-95">
+        <div className="flex flex-wrap gap-3">
+          <button
+            className="rounded bg-white px-5 py-2.5 text-sm font-bold text-black shadow-lg shadow-black/30 transition hover:bg-zinc-200 active:scale-95 sm:px-8 sm:py-3 md:text-lg"
+            type="button"
+          >
             Play
           </button>
 
           <button
             onClick={() => setShowMore(!showMore)}
-            className="bg-gray-500/70 text-white px-3 sm:px-4 md:px-6 lg:px-8 py-1.5 sm:py-2 md:py-2.5 lg:py-3 rounded-md text-xs sm:text-sm md:text-base lg:text-lg font-bold hover:bg-gray-500 transition active:scale-95"
+            className="rounded bg-zinc-500/75 px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-black/30 backdrop-blur transition hover:bg-zinc-500 active:scale-95 sm:px-8 sm:py-3 md:text-lg"
+            type="button"
           >
             {showMore ? "Less Info" : "More Info"}
           </button>

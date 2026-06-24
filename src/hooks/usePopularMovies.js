@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { API_OPTIONS } from "../utils/constants";
 import { useDispatch } from "react-redux";
+import { API_OPTIONS } from "../utils/constants";
 import { addPopularMovies } from "../utils/moviesSlice";
 
 const usePopularMovies = () => {
@@ -8,14 +8,17 @@ const usePopularMovies = () => {
 
   useEffect(() => {
     const getPopularMovies = async () => {
-      const data = await fetch(
-        "https://api.themoviedb.org/3/movie/popular?page=1",
-        API_OPTIONS
-      );
-
-      const json = await data.json();
-
-      dispatch(addPopularMovies(json.results));
+      try {
+        const data = await fetch(
+          "https://api.themoviedb.org/3/movie/popular?page=1",
+          API_OPTIONS,
+        );
+        const json = await data.json();
+        dispatch(addPopularMovies(Array.isArray(json?.results) ? json.results : []));
+      } catch (error) {
+        console.error("Failed to fetch popular movies:", error);
+        dispatch(addPopularMovies([]));
+      }
     };
 
     getPopularMovies();
