@@ -53,21 +53,21 @@ const GPTSearchBar = () => {
   };
 
   return (
-    <div className="flex justify-center pt-40">
+    <div className="flex justify-center px-4 pt-24 sm:px-6 md:pt-32">
       <form
-        className="w-full max-w-4xl flex"
+        className="w-full max-w-4xl flex flex-col gap-3 sm:flex-row sm:items-center"
         onSubmit={(e) => e.preventDefault()}
       >
         <input
           type="text"
           ref={searchText}
           placeholder={lang[selectedLang].gptSeachPlaceholder}
-          className="flex-1 px-6 py-4 bg-zinc-900 text-white border border-zinc-700 rounded-l-full outline-none focus:border-red-600"
+          className="w-full flex-1 min-w-0 rounded-full border border-zinc-700 bg-zinc-900 px-5 py-4 text-white outline-none focus:border-red-600 sm:rounded-l-full sm:rounded-r-none"
         />
         <button
-          className="px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-bold
-         rounded-r-full transition"
+          className="w-full rounded-full bg-red-600 px-6 py-4 text-white font-bold transition hover:bg-red-700 sm:w-auto sm:rounded-r-full sm:rounded-l-none"
           onClick={handleGeminiSearch}
+          type="button"
         >
           {lang[selectedLang].search}
         </button>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -23,6 +23,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const navItems = ["Home", "TV Shows", "Movies", "New & Popular", "My List"];
   const gptSearch = useSelector((store) => store.gpt.showGPTSearch);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleSignOut = () => {
     signOut(auth).catch((error) => {
@@ -70,8 +71,8 @@ const Header = () => {
 
   return (
     <header className="fixed left-0 right-0 top-0 z-[100] bg-gradient-to-b from-black via-black/90 to-black/55 backdrop-blur-sm">
-      <div className="flex h-16 items-center justify-between px-4 sm:px-6 md:h-20 md:px-10 lg:px-14">
-        <div className="flex min-w-0 items-center gap-6 lg:gap-9">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6 md:h-20 md:px-10 lg:px-14">
+        <div className="flex min-w-0 items-center gap-4 lg:gap-9">
           <img
             className="w-24 shrink-0 object-contain sm:w-28 md:w-36 lg:w-40"
             src={NETFLIX_LOGO_URL}
@@ -94,16 +95,16 @@ const Header = () => {
         </div>
 
         {user && (
-          <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
+          <div className="flex w-full flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-end md:w-auto md:gap-4 min-w-0">
             {gptSearch && (
               <select
                 name="lang"
                 id=""
-                className="text-black bg-white rounded-lg px-4 py-2"
+                className="w-full min-w-[120px] rounded-lg border border-white/10 bg-white px-3 py-2 text-black sm:w-auto"
                 onChange={handleLangChange}
               >
                 {SUPPORTED_LANGUAGES.map((lang) => (
-                  <option className="rounded-lg" value={lang.identifier} key={lang.identifier} >
+                  <option className="rounded-lg" value={lang.identifier} key={lang.identifier}>
                     {lang.name}
                   </option>
                 ))}
@@ -116,22 +117,60 @@ const Header = () => {
               alt={HEADER_PROFILE_ALT}
             />
             <button
-              className="py-2 px-4 bg-white text-black rounded-lg"
+              className="w-full rounded-lg bg-white px-4 py-3 text-center text-sm font-semibold text-black transition hover:bg-zinc-100 sm:w-auto md:px-4"
               onClick={handleGPTSearchClick}
+              type="button"
             >
-              {!gptSearch?'GPT Search':'Home Page'}
+              {!gptSearch ? "GPT Search" : "Home Page"}
             </button>
 
             <button
-              className="rounded bg-[#e50914] px-3 py-1.5 text-xs font-semibold text-white shadow-md shadow-black/30 transition hover:bg-[#f6121d] active:scale-95 sm:px-4 md:text-sm"
+              className="w-full rounded-lg bg-[#e50914] px-3 py-3 text-sm font-semibold text-white shadow-md shadow-black/30 transition hover:bg-[#f6121d] active:scale-95 sm:w-auto sm:px-4 md:text-sm"
               onClick={handleSignOut}
               type="button"
             >
               {HEADER_SIGN_OUT}
             </button>
+
+            <button
+              type="button"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white transition hover:bg-white/15 md:hidden"
+              onClick={() => setMobileMenuOpen((current) => !current)}
+              aria-expanded={mobileMenuOpen}
+              aria-label="Toggle navigation"
+            >
+              <svg
+                className="h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M4 7h16M4 12h16M4 17h16" />
+              </svg>
+            </button>
           </div>
         )}
       </div>
+
+      {user && mobileMenuOpen && (
+        <div className="md:hidden w-full border-t border-white/10 bg-black/95 px-4 py-3">
+          <nav className="flex flex-col gap-2">
+            {navItems.map((item) => (
+              <button
+                key={item}
+                className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-left text-sm text-white transition hover:bg-white/10"
+                type="button"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {item}
+              </button>
+            ))}
+          </nav>
+        </div>
+      )}
     </header>
   );
 };

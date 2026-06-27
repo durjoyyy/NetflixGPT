@@ -30,8 +30,7 @@ Netflix GPT is a React app built with Create React App and Tailwind CSS that use
    - `REACT_APP_GEMINI_KEY=your_gemini_api_key`
 3. Install dependencies:
    - `npm install`
-4. Start the app:
-   - `npm start`
+
 
 ## Features
 

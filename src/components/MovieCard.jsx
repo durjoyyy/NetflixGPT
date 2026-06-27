@@ -5,7 +5,7 @@ const MovieCard = ({ posterPath, title }) => {
   if (!posterPath) return null;
 
   return (
-    <article className="group/card w-28 flex-none cursor-pointer sm:w-36 md:w-44 lg:w-48">
+    <article className="group/card flex-none min-w-[140px] w-[140px] cursor-pointer sm:min-w-[160px] sm:w-[160px] md:w-44 lg:w-48">
       <img
         className="aspect-[2/3] w-full rounded object-cover shadow-xl shadow-black/60 ring-1 ring-white/10 transition duration-300 group-hover/card:-translate-y-1 group-hover/card:scale-105 group-hover/card:ring-white/30"
         src={IMG_CDN_URL + posterPath}

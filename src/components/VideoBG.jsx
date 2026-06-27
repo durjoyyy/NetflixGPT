@@ -26,7 +26,7 @@ const VideoBG = ({ movieId }) => {
   return (
     <div className="absolute inset-0 z-0 overflow-hidden bg-black">
       <iframe
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[120%] min-h-[120vw] w-[120%] min-w-[213vh] -translate-x-1/2 -translate-y-1/2"
+        className="pointer-events-none absolute inset-0 h-full w-full min-h-full min-w-full"
         src={`https://www.youtube-nocookie.com/embed/${trailerVideo.key}?${youtubeParams.toString()}`}
         title="Movie trailer background"
         allow="autoplay; encrypted-media"
