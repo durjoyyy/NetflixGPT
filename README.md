@@ -1,51 +1,53 @@
 # Netflix GPT
 
-- Create React App
-- Tailwind Configuration for Create React App
-- Header
-- Routing of App
-- Login Form
-- Sign Up Form
-- Form Validation
-- useRef Hook
-- Firebase Setup
-- Deploying our app to production
-- Sign In and Sign up user API Integration
-- Created Redux Store with userSlice
-- Implemented Sign out
-- Update Profile API with name and photo url
-- Redirect user to correct url on redirect
-- Unsubscribe to the onAuthStateChanged callback
-- Added hardcoded strings to constants file
-- Fetch from TMDB Movies
-- Register TMDB API, create app, get access token
-- Get Data from TMDB and now playing movie list API
-- Custom for now playing movies
-- Create movie slice
-- Updated store with movie Data
-- Planning for Main and Secondary Container
-- Fetched data for trailer Video
-- Update the store with the trailer video data
-- Embedded the YT Video and made it autoplay and mute
-- Secondary Component Added, Movie List and Movie Card
-- Found out TMDB Image CDN URL
-- Fetch top rated, popular, upcoming movies
-- GPT Search Bar and Button
-- Multi Language Feature in our app
-- Integrate GPT APIs (get open api keys)
+Netflix GPT is a React app built with Create React App and Tailwind CSS that uses Firebase auth, TMDB movie data, and Gemini-powered movie recommendations.
 
+## What’s included
 
-# Features
-- Login and Signup Page 
-    - Sign In / Sign up Form
-    - Redirect to Browser Page 
-- Browse Page (after Authentication )
-    - Header
-    - Main Move
-        - Trailer in Background
-        - Title and Description
-        - Movie Suggestions
-            - Movie List 
-- NetflixGPT
-    - Search Bar
-    - Movie Suggestions
+- Create React App base
+- Tailwind CSS styling for CRA
+- Firebase authentication with login, signup, sign out, and profile update
+- Redux store for user and movie state
+- TMDB movie fetching for now playing, top rated, popular, and upcoming lists
+- YouTube trailer background on the browse page
+- Responsive browse layout with movie cards and lists
+- Multi-language support
+- Gemini movie recommendation search feature
+- Environment variable support for API keys
+
+## Latest updates
+
+- Added Gemini integration for movie recommendations
+- Switched the GPT search flow to use `gemini-1.5-mini`
+- Updated Gemini client config to use `REACT_APP_GEMINI_KEY`
+- Kept the movie prompt focused on returning exactly 5 comma-separated titles
+- Added safe query validation and error logging in `GPTSearchBar.jsx`
+
+## Setup
+
+1. Copy `.env.example` or create a `.env` file in the project root
+2. Set the Gemini key:
+   - `REACT_APP_GEMINI_KEY=your_gemini_api_key`
+3. Install dependencies:
+   - `npm install`
+4. Start the app:
+   - `npm start`
+
+## Features
+
+- Login and Signup Page
+  - Sign in / Sign up forms
+  - Redirect to browse page after auth
+- Browse Page
+  - Header
+  - Background trailer video
+  - Movie title and description
+  - Movie suggestion lists
+- Gemini Search
+  - Movie recommendation input
+  - Gemini-powered results
+
+## Notes
+
+- Gemini is used in this app for recommendation generation, but a valid Google API key is required.
+- This project is a demo and does not include a dedicated backend proxy for secret key protection.
